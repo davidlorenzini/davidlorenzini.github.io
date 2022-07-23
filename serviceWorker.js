@@ -18,19 +18,18 @@ self.addEventListener("install", installEvent => {
 self.addEventListener("fetch", fetchEvent => {
   console.log(fetchEvent)
   
-  fetchEvent.respondWith(
-    caches.open(staticSiteCache)
-    .then(cache => {
+  fetchEvent.respondWith(caches.open(staticSiteCache).then(cache => {
+      cache.match(fetchEvent.request).then(cachedResponse => { 
+        if (cachedResponse) { 
+          console.log("Cached response: ", cachedResponse)
+          return cachedResponse
+        }
 
-      cache.match(fetchEvent.request)
-      .then(cachedResponse => { 
 
-        if (cachedResponse) return cachedResponse
-  
-        fetch(fetchEvent.request)
-        .then(fetchedResponse => {
-          
+        fetch(fetchEvent.request).then(fetchedResponse => {
           cache.put(fetchedResponse.request, fetchedResponse.clone())
+          print("CAche: ", cache)
+          print("Fetched response: ", fetchedResponse)
           return fetchedResponse
         })
       })
