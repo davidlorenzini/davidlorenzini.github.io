@@ -1,4 +1,4 @@
-const staticSiteCache = "static-site-cache-v1"
+const cacheName = "static-site-cache-v1"
 const assets = [
   "/",
   "/index.html",
@@ -8,7 +8,7 @@ const assets = [
 
 self.addEventListener("install", installEvent => {
   installEvent.waitUntil(
-    caches.open(staticSiteCache).then(cache => {
+    caches.open(cacheName).then(cache => {
       cache.addAll(assets)
     })
   )
