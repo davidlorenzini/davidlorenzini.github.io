@@ -17,7 +17,7 @@ self.addEventListener("install", installEvent => {
 
 self.addEventListener("fetch", event => {
   console.log(event)
-  cacheFirst(event)
+  networkFirst(event)
   
 })
 
