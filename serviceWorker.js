@@ -1,23 +1,14 @@
-const staticDevCoffee = "dev-coffee-site-v1"
+const staticSiteCache = "static-site-cache-v1"
 const assets = [
   "/",
   "/index.html",
-  "/css/style.css",
-  "/js/app.js",
-  "/images/coffee1.jpg",
-  "/images/coffee2.jpg",
-  "/images/coffee3.jpg",
-  "/images/coffee4.jpg",
-  "/images/coffee5.jpg",
-  "/images/coffee6.jpg",
-  "/images/coffee7.jpg",
-  "/images/coffee8.jpg",
-  "/images/coffee9.jpg",
+  "/images/icons/192.png",
+  "/images/icons/512.png",
 ]
 
 self.addEventListener("install", installEvent => {
   installEvent.waitUntil(
-    caches.open(staticDevCoffee).then(cache => {
+    caches.open(staticSiteCache).then(cache => {
       cache.addAll(assets)
     })
   )
@@ -25,9 +16,16 @@ self.addEventListener("install", installEvent => {
 
 
 self.addEventListener("fetch", fetchEvent => {
-    fetchEvent.respondWith(
-      caches.match(fetchEvent.request).then(res => {
-        return res || fetch(fetchEvent.request)
+  console.log(fetchEvent)
+  
+  fetchEvent.respondWith(
+    caches.match(fetchEvent.request).then(cachedResponse => {
+      if (cachedResponse) return cachedResponse
+
+      fetch(fetchEvent.request).then(fetchedResponse => {
+        cache.put(fetchedResponse.request, fetchedResponse.clone())
+        return fetchedResponse
       })
-    )
-  })
+    })
+  )
+})
