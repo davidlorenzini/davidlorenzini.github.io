@@ -42,9 +42,10 @@
     </script>
     <script  src="https://cdn.jsdelivr.net/npm/idb@7/build/umd.js" ></script>
     <script>
+        (async function(){
             window.DB = idb.openDB("list", 1, {
                 upgrade(db, oldVersion, newVersion, transaction) {
-                    if(!db.objectStoreNames.contains(store)) {
+                    if(!db.objectStoreNames.contains("list")) {
                         db.createObjectStore("test", {keyPath: "id", autoIncrement: true} )
                         print("Store created")
                     }
@@ -65,17 +66,17 @@
                 }).then(res => {
                     if (res) console.log("Item added to store")
                     else console.log("Item couldnt be addded to store")
-                })
+                }).catch(e => console.log("Error while adding data: ", e))
             }
             
             window.getAllFromDB = async function(store){
-                return window.DB.then(db => {
+                return idb.open("list").then(db => {
                     let transaction = db.transaction(store, "readonly")
                     let s = transaction.objectStore(store)
                     let items = await s.getAll()
                     consoloe.log("Retrieved all items from store")
                     return items
-                })
+                }).catch(e => console.log("Error while retrieving data: ", e))
             }
 
         
@@ -90,20 +91,20 @@
                 window.location.reload()
             })
         
-            let res = window.getAllFromDB("list")
-            pconsole.log("Get all: ", res)
-            let ul
-            if (res){
-                ul = document.createElement("ul")
-                document.body.appendChild(ul)
-            }
+            let res = await window.getAllFromDB("list")
+            console.log("Get all: ", res)
+            
             console.log(res)
-            for (item of res) {
-                let li = document.createElement("li")
-                li.innerHTML = item
-                ul.appendChild(li)
+            if (res){
+                let ul = document.createElement("ul")
+                document.body.appendChild(ul)
+                for (item of res) {
+                    let li = document.createElement("li")
+                    li.innerHTML = item
+                    ul.appendChild(li)
+                }
             }
-        
+        })()
 
     </script>
     
