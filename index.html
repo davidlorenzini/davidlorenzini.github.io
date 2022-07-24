@@ -22,14 +22,20 @@
                 .then(res => {
                     let subhead = document.createElement("h3")
                     subhead.innerHTML = "Service Worker active"
+                    document.body.appendChild(subhead)
+                    
                     let para = document.createElement("p")
                     para.innerHTML = "Response: " + res
+                    document.body.appendChild(para)
                 })
                 .catch(err => {
                     let subhead = document.createElement("h3")
                     subhead.innerHTML = "Service Worker inactive"
+                    document.body.appendChild(subhead)
+
                     let para = document.createElement("p")
                     para.innerHTML = "Error: " + res
+                    document.body.appendChild(para)
                 })
   })
 }
@@ -80,6 +86,7 @@
             let ul
             if (res){
                 ul = document.createElement("ul")
+                document.body.appendChild(ul)
             }
             console.log(res)
             for (item of res) {
