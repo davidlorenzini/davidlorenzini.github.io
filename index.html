@@ -22,13 +22,13 @@
                 .then(res => {
                     let subhead = document.createElement("h3")
                     subhead.innerHTML = "Service Worker active"
-                    let para = document.createElement("")
+                    let para = document.createElement("p")
                     para.innerHTML = "Response: " + res
                 })
                 .catch(err => {
                     let subhead = document.createElement("h3")
                     subhead.innerHTML = "Service Worker inactive"
-                    let para = document.createElement("")
+                    let para = document.createElement("p")
                     para.innerHTML = "Error: " + res
                 })
   })
