@@ -43,7 +43,7 @@
     <script  src="https://cdn.jsdelivr.net/npm/idb@7/build/umd.js" ></script>
     <script>
             console.log("script works")
-            window.DB = await idb.openDB("list", 1, {
+            window.DB = idb.openDB("list", 1, {
                 upgrade(db, oldVersion, newVersion, transaction) {
                     if(!db.objectStoreNames.contains(store)) {
                         db.createObjectStore("test", {keyPath: "id", autoIncrement: true} )
