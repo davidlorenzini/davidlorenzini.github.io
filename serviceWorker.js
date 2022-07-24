@@ -4,6 +4,7 @@ const assets = [
   "/index.html",
   "/images/icons/192.png",
   "/images/icons/512.png",
+  "https://cdn.jsdelivr.net/npm/idb@7/build/umd.js",
 ]
 
 self.addEventListener("install", installEvent => {

@@ -13,15 +13,82 @@
 </head>
 <body>
     <h1>index</h1>
+    <button>Add</button>
     <script>
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function() {
                 navigator.serviceWorker
                 .register("/serviceWorker.js")
-                .then(res => console.log("service worker registered", res))
-                .catch(err => console.log("service worker not registered", err))
+                .then(res => {
+                    let subhead = document.createElement("h3")
+                    subhead.innerHTML = "Service Worker active"
+                    let para = document.createElement("")
+                    para.innerHTML = "Response: " + res
+                })
+                .catch(err => {
+                    let subhead = document.createElement("h3")
+                    subhead.innerHTML = "Service Worker inactive"
+                    let para = document.createElement("")
+                    para.innerHTML = "Error: " + res
+                })
   })
 }
     </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/idb@7/build/umd.js" />
+    <script>
+        (function(){
+            window.DB = await idb.openDB("list", 1, {
+                upgrade(db, oldVersion, newVersion, transaction) {
+                    if(!db.objectStoreNames.contains(store)) {
+                        await db.createObjectStore("test", {keyPath: "id", autoIncrement: true} )
+                        print("Store created")
+                    }
+
+                }
+            })
+                        
+            window.addToDB = async function (store, key, value){
+                await window.DB.add(store, {
+                    key, 
+                    value,
+                    time: Date.now()
+                })
+                console.log("Item added to store")
+            }
+            
+            window.getAllFromDB = async function(store){
+                let transaction = window.DB.transaction(store, "readonly")
+                let s = transaction.objectStore(store)
+                let items = await s.getAll()
+                consoloe.log("Retrieved all items from store")
+                return items
+            }
+
+        
+            let button = document.querySelector("button")
+            button.addEventListener("click", async function(e){
+                let key = String.fromCharCode(
+                    Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97)
+                )
+                let value = Math.floor(Math.random() * 10000)
+                await window.addToDB("list", key, value)
+                window.location.reload()
+            })
+        
+            let res = window.getAllFromDB("list")
+            let ul
+            if (res){
+                ul = document.createElement("ul")
+            }
+            console.log(res)
+            for (item of res) {
+                let li = document.createElement("li")
+                li.innerHTML = item
+                ul.appendChild(li)
+            }
+        })()
+
+    </script>
+    
 </body>
 </html>
