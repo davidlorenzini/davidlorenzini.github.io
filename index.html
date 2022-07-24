@@ -40,9 +40,8 @@
   })
 }
     </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/idb@7/build/umd.js" ></script>
+    <script  src="https://cdn.jsdelivr.net/npm/idb@7/build/umd.js" ></script>
     <script>
-        (async function(){
             console.log("script works")
             window.DB = await idb.openDB("list", 1, {
                 upgrade(db, oldVersion, newVersion, transaction) {
@@ -94,7 +93,7 @@
                 li.innerHTML = item
                 ul.appendChild(li)
             }
-        })()
+        
 
     </script>
     
