@@ -14,7 +14,7 @@ self.addEventListener("install", installEvent => {
         return new Request(urlToPrefetch, { mode: 'no-cors' });
       })).then(() => {
         console.log('All resources have been fetched and cached.');
-      })
+      }).catch(e => console.log("Error while caching: ", e))
     })
   )
 })

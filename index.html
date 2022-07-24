@@ -53,7 +53,7 @@
                 }
             })
                         
-            window.addToDB = async function (store, key, value){
+            window.addToDB = function (store, key, value){
                 window.DB.then(db => {
                     let transaction = db.transaction(store, "readwrite")
                     let s = transaction.objectStore(store)
@@ -69,8 +69,8 @@
                 }).catch(e => console.log("Error while adding data: ", e))
             }
             
-            window.getAllFromDB = async function(store){
-                return idb.open("list").then(db => {
+            window.getAllFromDB = function(store){
+                return idb.open("list").then(async function(db) {
                     let transaction = db.transaction(store, "readonly")
                     let s = transaction.objectStore(store)
                     let items = await s.getAll()
