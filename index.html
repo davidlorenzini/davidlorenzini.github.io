@@ -42,7 +42,6 @@
     </script>
     <script  src="https://cdn.jsdelivr.net/npm/idb@7/build/umd.js" ></script>
     <script>
-            console.log("script works")
             window.DB = idb.openDB("list", 1, {
                 upgrade(db, oldVersion, newVersion, transaction) {
                     if(!db.objectStoreNames.contains(store)) {
@@ -54,25 +53,35 @@
             })
                         
             window.addToDB = async function (store, key, value){
-                await window.DB.add(store, {
-                    key, 
-                    value,
-                    time: Date.now()
+                window.DB.then(db => {
+                    let transaction = db.transaction(store, "readwrite")
+                    let s = transaction.objectStore(store)
+                    s.add({
+                        key, 
+                        value,
+                        time: Date.now()
+                    })
+                    return transaction.complete
+                }).then(res => {
+                    if (res) console.log("Item added to store")
+                    else console.log("Item couldnt be addded to store")
                 })
-                console.log("Item added to store")
             }
             
             window.getAllFromDB = async function(store){
-                let transaction = window.DB.transaction(store, "readonly")
-                let s = transaction.objectStore(store)
-                let items = await s.getAll()
-                consoloe.log("Retrieved all items from store")
-                return items
+                return window.DB.then(db => {
+                    let transaction = db.transaction(store, "readonly")
+                    let s = transaction.objectStore(store)
+                    let items = await s.getAll()
+                    consoloe.log("Retrieved all items from store")
+                    return items
+                })
             }
 
         
             let button = document.querySelector("button")
             button.addEventListener("click", async function(e){
+                console.log("Button clicked")
                 let key = String.fromCharCode(
                     Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97)
                 )
@@ -82,6 +91,7 @@
             })
         
             let res = window.getAllFromDB("list")
+            pconsole.log("Get all: ", res)
             let ul
             if (res){
                 ul = document.createElement("ul")

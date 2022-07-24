@@ -30,6 +30,7 @@ function networkFirst(event) {
   event.respondWith(caches.open(cacheName).then(cache => {
     fetch(event.request).then(fetchedRes => {
       cache.add(event.request, fetchedRes.clone())
+      console.log(fetchedRes)
       return fetchedRes
     }).catch(err => {
       cache.match(event.request.url).then(cachedRes => cachedRes)
