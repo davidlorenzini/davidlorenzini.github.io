@@ -10,11 +10,11 @@ const assets = [
 self.addEventListener("install", installEvent => {
   installEvent.waitUntil(
     caches.open(cacheName).then(cache => {
-      cache.addAll(assets.map(function(urlToPrefetch) {
+      cache.addAll(assets.map(urlToPrefetch => {
         return new Request(urlToPrefetch, { mode: 'no-cors' });
-     })).then(function() {
-      console.log('All resources have been fetched and cached.');
-    })
+      })).then(() => {
+        console.log('All resources have been fetched and cached.');
+      })
     })
   )
 })
