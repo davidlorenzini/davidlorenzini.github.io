@@ -47,7 +47,7 @@
             window.DB = await idb.openDB("list", 1, {
                 upgrade(db, oldVersion, newVersion, transaction) {
                     if(!db.objectStoreNames.contains(store)) {
-                        await db.createObjectStore("test", {keyPath: "id", autoIncrement: true} )
+                        db.createObjectStore("test", {keyPath: "id", autoIncrement: true} )
                         print("Store created")
                     }
 
