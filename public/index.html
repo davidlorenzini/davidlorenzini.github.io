@@ -18,7 +18,7 @@
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function() {
                 navigator.serviceWorker
-                .register("./sw.js")
+                .register("./dist/sw.js")
                 .then(res => {
                     let subhead = document.createElement("h3")
                     subhead.innerHTML = "Service Worker active"
