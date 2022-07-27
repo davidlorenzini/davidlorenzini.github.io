@@ -21,8 +21,7 @@ function addToDB (store, key, value){
         })
         return transaction.complete
     }).then(res => {
-        if (res) console.log("Item added to store")
-        else console.log("Item couldnt be addded to store")
+        console.log("Item added to store")
     }).catch(e => console.log("Error while adding data: ", e))
 }
 

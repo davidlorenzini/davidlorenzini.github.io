@@ -19,10 +19,10 @@ module.exports = {
             swSrc: "./src/sw.js",
             swDest: "sw.js",
             additionalManifestEntries: [
-                "/dist/main.js",
-                "/images/icons/192.png",
-                "/images/icons/512.png",
-                "/index.html"
+                "public/dist/main.js",
+                "public/images/icons/192.png",
+                "public/images/icons/512.png",
+                "public/index.html"
             ]
           }),
     ]
