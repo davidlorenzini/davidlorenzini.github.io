@@ -1,8 +1,10 @@
-import { addToDB, getAllFromDB} from "./indexedDB"
+import { add, getAll} from "./indexedDB"
+import registerServiceWorker from "./serviceWorker/registerSW"
+
+registerServiceWorker()
 
 async function addData(){
-    let res = await getAllFromDB("test")
-    console.log("Get all: ", res)
+    let res = await getAll("test")
     if (res){
         let ul = document.createElement("ul")
         document.body.appendChild(ul)
@@ -17,12 +19,11 @@ addData()
 const button = document.querySelector("button")
 button.addEventListener("click", async function(e){
     await e.preventDefault()
-    console.log("Button clicked")
     let key = String.fromCharCode(
-        Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97),Math.floor(Math.random() * 25 + 97)
+        ...Array(8).fill().map(() => Math.floor(Math.random() * 25 + 97))
     )
     let value = Math.floor(Math.random() * 10000)
-    await addToDB("test", key, value)
+    await add("test", key, value)
     //window.location.reload()
 })
 

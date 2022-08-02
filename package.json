@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "push": "git add . && git commit-m \"Automated commit\" && git push pwa main",
-    "build": "webpack",
+    "push": "git add . && git commit -m \"Automated commit\" && git push pwa main",
+    "build": "webpack --mode=production --no-watch",
     "save": "npm run build && npm run push",
-    "serve": "webpack && webpack serve"
+    "serve": "npm run build && webpack serve"
   },
   "repository": {
     "type": "git",
@@ -21,12 +20,15 @@
   },
   "homepage": "https://github.com/davidlorenzini/davidlorenzini.github.io#readme",
   "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.3",
     "workbox-webpack-plugin": "^6.5.3"
   },
   "dependencies": {
-    "idb": "^7.0.2"
+    "idb": "^7.0.2",
+    "workbox-core": "^6.5.4",
+    "workbox-window": "^6.5.4"
   }
 }
