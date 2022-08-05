@@ -7,11 +7,6 @@ body, html {
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
 }
 
-:root {
-    touch-action: pan-x pan-y;
-    height: 100%;
-}
-
 html::-webkit-scrollbar {
     width: 0px; /* For Chrome, Safari, and Opera */
 }
