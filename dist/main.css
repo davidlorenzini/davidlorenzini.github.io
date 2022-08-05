@@ -5,6 +5,7 @@ body, html {
     margin: 0;
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    touch-action: pan-x pan-y;
 }
 
 html::-webkit-scrollbar {
