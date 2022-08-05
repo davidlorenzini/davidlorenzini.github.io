@@ -4,6 +4,8 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 require("path")
 module.exports = {
+    mode: "production",
+    watch: false,
     entry: "./src/index.js",
     output: {
         filename: "main.js",
