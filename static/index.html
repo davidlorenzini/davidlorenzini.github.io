@@ -13,6 +13,11 @@
     <title>PWA</title>
 </head>
 <body>
+    <script>
+        document.ontouchstart = function(e){ 
+            e.preventDefault(); 
+        }
+    </script>
     <h1>index</h1>
     <button>Add</button>
     <script src="./main.js"></script>
