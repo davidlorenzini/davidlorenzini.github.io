@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "push": "git add . && git commit -m \"Automated commit\" && git push pwa main",
+    "push": "git add . && git commit -m \"Automated commit\" && git push pwa react",
     "build": "webpack --mode=production --no-watch",
     "save": "npm run build && npm run push",
     "serve": "npm run build && webpack serve"
