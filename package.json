@@ -1,7 +1,6 @@
 {
   "name": "davidlorenzini.github.io",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "push": "git add . && git commit -m \"Automated commit\" && git push pwa main",
@@ -30,5 +29,7 @@
     "idb": "^7.0.2",
     "workbox-core": "^6.5.4",
     "workbox-window": "^6.5.4"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
